@@ -35,8 +35,10 @@ const FormSign = () => {
 
                         navigate('/ProfilPage');
 
-                        console.log(' token: ' + localStorage.data)
-                    })
+                    });
+                    console.log('Voici le token:',  authActions.setToken(response.data.body.token));
+
+
             })
 
             // .catch((err) => {
@@ -57,7 +59,7 @@ const FormSign = () => {
             <div class="input-remember">
                 <input type="checkbox" id="remember-me" /><label for="remember-me">Remember me</label>
             </div>
-            <button class="sign-in-button">Sign In</button>
+            <button class="sign-in-button" type="submit">Sign In</button>
       </form>
       
     )

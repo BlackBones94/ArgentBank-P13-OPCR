@@ -2,12 +2,11 @@ import React, {useEffect , useState} from "react";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login , setToken, userLogin , updateUser , changerName, logout } from "../store/userSlice";
+import { setToken , login} from "../store/userSlice";
 import { loginUp, recupUser } from "../API/api";
 
 
 function FormSign()  {
-
     const dispatch = useDispatch()
     const [email , setEmail] = useState("")
     const [password , setPassword] = useState("")
@@ -15,8 +14,10 @@ function FormSign()  {
     function handleSubmit(e) {
       e.preventDefault()
          const token = loginUp(email, password)
+
          console.log("dispatch")
         dispatch(setToken(token))
+        console.log(dispatch(setToken(token)))
         
          // .then((response) => {
         //    dispatch(authActions.setToken(response.token))

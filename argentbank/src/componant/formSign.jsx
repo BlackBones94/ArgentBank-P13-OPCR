@@ -2,89 +2,39 @@ import React, {useEffect , useState} from "react";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken , login} from "../store/userSlice";
-import { loginUp, recupUser } from "../API/api";
+import { setToken , login , userLogin, updateFirstName, updateLastName} from "../store/userSlice";
+import { loginUp, modifUser, recupUser } from "../API/api";
 
 
 function FormSign()  {
     const dispatch = useDispatch()
     const [email , setEmail] = useState("")
     const [password , setPassword] = useState("")
+    const navigate = useNavigate()
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
       e.preventDefault()
-         const token = loginUp(email, password)
 
-         console.log("dispatch")
-        dispatch(setToken(token))
-        console.log(dispatch(setToken(token)))
+        const token = await loginUp(email, password)
         
-         // .then((response) => {
-        //    dispatch(authActions.setToken(response.token))
-        //    console.log('token',dispatch(authActions.setToken(response.token)))
-        //     // navigate('/ProfilPage')
-        //     recupUser(response.token)
-        //         .then(data => {
-        //             dispatch(authActions.updateUser(data.firstName))
-        //             dispatch(authActions.updateUser(data.lastName))
-        //             console.log('test firstName', dispatch(authActions.updateUser(data.firstName)))
-        //             console.log('test lastName',  dispatch(authActions.updateUser(data.lastName)))
-        //              if(response.token === '' || response.token === undefined) {
-        //                     dispatch(authActions.userLogin(false))
-        //                 } else {
-        //                     dispatch(authActions.userLogin(true))
-        //                     console.log( 'test reussite connexion' ,dispatch(authActions.userLogin(true)))
-        //                     navigate('/ProfilPage')
-        //                 }
-        //         })
-
-                // if(response.token === '' || response.token === undefined) {
-                //     dispatch(authActions.userLogin(false))
-                // } else {
-                //     dispatch(authActions.userLogin(true))
-                //     console.log( 'test reussite connexion' ,dispatch(authActions.userLogin(true)))
-                //     navigate('/ProfilPage')
-                // }
-   
-          
+        console.log("token", token)
+        console.log("dispatch")
+        dispatch(setToken(token))
+       
+        if(token === ''  || token === undefined) {
+            dispatch(userLogin(false))
+           
+        } else {
+            dispatch(userLogin(true))
+            // console.log('test reussite log' , dispatch(userLogin(true)))
+            navigate('/ProfilPage')
+        }      
+        const user = await recupUser(token.token)
+        console.log(user)
+        dispatch(updateFirstName(user.body.firstName ))
+        dispatch(updateLastName(user.body.lastName))
+        // console.log( 'testDispatch', dispatch(updateFirstName(user.body.firstName )))
     }
-    // const BASE_URL = "http://localhost:3001/api/v1/user/";
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     const form = e.target;
-    //     const email = form.querySelector('#email').value;
-    //     const password = form.querySelector('#password').value;
-
-    //     axios
-    //         .post(BASE_URL + 'login', {
-    //             email,
-    //             password,
-    //         }) 
-    //         .then((response) => {
-    //             dispatch(authActions.setToken(response.data.body));
-
-    //             axios
-    //                 .post(
-    //                     'http://localhost:3001/api/v1/user/profile',{},
-    //                     {headers: {Authorization: `Bearer ${response.data.body.token}`}},
-    //                 )
-    //                 .then((response) => {
-    //                     dispatch(authActions.login(response.data.body));
-
-    //                     navigate('/ProfilPage');
-
-    //                 });
-    //                 console.log('Voici le token:',  authActions.setToken(response.data.body.token));
-
-
-    //         })
-
-    //         // .catch((err) => {
-    //         //     alert(err.response.data.message)
-    //         // });
-    // };
-
 
     return(
         <form onSubmit={handleSubmit}>

@@ -1,7 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {authSlice} from '../store/userSlice'
-import { composeWithDevTools } from '@reduxjs/toolkit/dist/devtoolsExtension';
-
+import { composeWithDevTools } from 'redux-devtools-extension';
 const store = configureStore(
   {
     reducer:{
@@ -10,6 +9,5 @@ const store = configureStore(
     composeWithDevTools
   });
 
-// const store = configureStore({reducer:{auth: authSlice.reducer},devTools:[devToolsEnhancer({realtime:true, port: 8000})],})
 
 export default store;

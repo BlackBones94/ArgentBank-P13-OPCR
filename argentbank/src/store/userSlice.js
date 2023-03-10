@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState =({
     token: '',
     firstName: '',
-    lastName: null,
+    lastName: '',
     email: null,
     password: null,
     isAuth: false,
@@ -25,34 +25,36 @@ export const authSlice = createSlice({
 
         setToken: (state , action)  => {
             state.token = action.payload.token;
-    
-            // state.isAuth = true;
         },
 
-        //  userLogin(state, action) {
-        //     state.isAuth = action.payload
-        // },
+         userLogin(state, action) {
+            state.isAuth = action.payload
+        },
 
-        // updateUser(state , action) {
-        //     state.firstName = action.payload.firstName;
-        //     state.lastName = action.payload.lastNamen;
-        // },
+        updateFirstName:(state , action) => {
+            state.firstName = action.payload;
+        },
+        
+        updateLastName:(state, action) => {
+            state.lastName = action.payload;
+        },
 
-        // changerName(state, action) {
-        //     state.changeName = action.payload.changeName
-        // },
+        changerName(state, action) {
+            state.changeName = action.payload;
+        },
 
 
-        // logout(state) {
-        //     state.email = null;
-        //     state.firstName = null;
-        //     state.lastName = null;
-        //     state.isAuth = null;
-        // },
+        logout: (state) => {
+            state.token = null;
+            state.email = null;
+            state.firstName = null;
+            state.lastName = null;
+            state.isAuth = null;
+        },
     },
 });
 
-export const {setToken, login} = authSlice.actions
+export const {setToken, login, userLogin, updateFirstName, updateLastName, logout , changerName} = authSlice.actions
 
 export default authSlice.reducer
 

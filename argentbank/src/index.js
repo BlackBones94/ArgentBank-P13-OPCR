@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import Header from './componant/header';
 import Footer from './componant/footer';
 
 import Home from './pages/Home';
@@ -19,7 +18,6 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <Header />
         <Routes>
           <Route path = '/' element = {<Home />}/>
           <Route path = '/sign' element = {<Sign />}/>

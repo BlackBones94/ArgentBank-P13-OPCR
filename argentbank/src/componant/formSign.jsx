@@ -23,7 +23,7 @@ function FormSign()  {
         console.log("token", token)
         console.log("dispatch")
         dispatch(setToken(token))
-        if(token === ''  || token === undefined || token === "error") {
+        if(token === ''  || token === undefined ) {
             dispatch(userLogin(false))
            
         } else {

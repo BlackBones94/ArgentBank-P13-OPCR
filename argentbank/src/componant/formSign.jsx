@@ -12,16 +12,18 @@ function FormSign()  {
     const [password , setPassword] = useState("")
     const navigate = useNavigate()
 
+
     async function handleSubmit(e) {
       e.preventDefault()
+
+
 
         const token = await loginUp(email, password)
         
         console.log("token", token)
         console.log("dispatch")
         dispatch(setToken(token))
-       
-        if(token === ''  || token === undefined) {
+        if(token === ''  || token === undefined || token === "error") {
             dispatch(userLogin(false))
            
         } else {
@@ -49,7 +51,7 @@ function FormSign()  {
             <div class="input-remember">
                 <input type="checkbox" id="remember-me" /><label for="remember-me">Remember me</label>
             </div>
-            <button class="sign-in-button" type="submit">Sign In</button>
+            <button  class="sign-in-button" type="submit">Sign In</button>
       </form>
       
     )
